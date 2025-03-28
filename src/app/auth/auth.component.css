@@ -55,7 +55,7 @@ form {
 }
 
 .form-input:focus::placeholder {
-	color: var(--clr-signup);
+	color: var(--md-sys-color-primary);
 	opacity: 0.85;
 }
 
@@ -85,7 +85,7 @@ form {
 }
 
 .form-button {
-	background: var(--clr-signup);
+	background: var(--md-sys-color-primary);
 	color: white;
 	padding: 1.25em 2.25em;
 }

@@ -1,10 +1,29 @@
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpRequest, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
 
 export const ApiURL = "http://localhost:3000/api"
+
+function authIntercepter(req: HttpRequest<unknown>, next: HttpHandlerFn) {
+	const authService = inject(AuthService);
+
+	if(!authService.user.getValue()) {
+		return req;
+	}
+
+	const requestWithHeaders = req.clone({
+		headers: req.headers.set('Authorization', 'Bearer ' + authService.user.getValue()?.getToken()!)
+	})
+
+	// handle error like if the access token is expired, refresh it
+	return next(requestWithHeaders).pipe(catchError(error=> {
+		return new  Observable<HttpEvent<any>>();
+	}))
+
+}
+
 
 
 export interface AuthResponse {

@@ -12,6 +12,9 @@ import { dummyFriends, Friend } from '../../dummyFriends';
 	}
 })
 export class AllFriendsComponent {
+
+
+
 	friendList: Friend[] = dummyFriends
 
 	onClick() {

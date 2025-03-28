@@ -1,20 +1,29 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient} from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { ApiURL } from "../auth/auth.service";
+import { ApiURL, AuthService } from "../auth/auth.service";
+
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class FriendsService {
     private httpClient = inject(HttpClient);
+    private authService = inject(AuthService);
+
+
+
+    getNewFriend(username: string) {
+        return this.httpClient.post(ApiURL + '/findUser', {
+            username: username
+        });
+
+    }
 
 
 
     getFriends() {
-     
-        return this.httpClient.get(ApiURL + '/getFriends',  {headers: {
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ…TgyfQ.7UThk53s0rYbmmsQ0GIyxZd8CPOkt663RClPCr7mpok'
-        }});
+        return this.httpClient.get(ApiURL + '/getFriends');
     }
 
 }
