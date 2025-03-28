@@ -1,0 +1,126 @@
+:host {
+	min-height: 100vh;
+	display: grid;
+	place-items: center;
+	font-family: "PT Sans Narrow", sans-serif;
+}
+
+p > span {
+	cursor: pointer;
+	color: blue;
+	text-decoration: underline;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+	border-radius: 20px;
+	width: 80%;
+	overflow: hidden;
+	max-width: 300px;
+	background-color: white;
+}
+
+.form-item {
+	display: flex;
+	flex-direction: column;
+}
+
+.form-input::placeholder {
+	font-family: inherit;
+	text-transform: uppercase;
+	font-weight: 800;
+	font-size: 10px;
+	letter-spacing: 1.2px;
+	border: 0;
+}
+
+.form-button {
+	font-family: inherit;
+	text-transform: uppercase;
+	font-weight: 800;
+	font-size: 10px;
+	letter-spacing: 1.2px;
+	border: 0;
+}
+
+.form-input {
+	padding: 1.5em;
+	border: 0;
+}
+
+.form-input::placeholder {
+	opacity: 0.35;
+}
+
+.form-input:focus::placeholder {
+	color: var(--clr-signup);
+	opacity: 0.85;
+}
+
+/* .form-input:focus {
+	color: black;
+	opacity: 100%;
+	font-family: initial;
+} */
+
+
+.form-item:first-of-type {
+	position: relative;
+}
+
+.form-button {
+	cursor: pointer;
+}
+
+.form-item:first-of-type::after {
+	content: "";
+	position: absolute;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	height: 1px;
+	background: rgba(0, 0, 0, 0.1);
+}
+
+.form-button {
+	background: var(--clr-signup);
+	color: white;
+	padding: 1.25em 2.25em;
+}
+
+input:focus {
+	outline: none;
+}
+
+@media only screen and (min-width: 550px) {
+	form {
+		flex-direction: row;
+		max-width: 550px;
+		border: 8px solid white;
+		border-radius: 3em;
+	}
+
+	.form-item {
+		justify-content: center;
+	}
+
+	.form-button {
+		margin-left: auto;
+		border-radius: 3em;
+	}
+
+	.form-item:last-of-type {
+		flex-grow: 1;
+	}
+
+	.form-item:first-of-type::after {
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: 1px;
+		height: initial;
+		left: initial;
+	}
+}

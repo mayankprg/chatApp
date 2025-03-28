@@ -1,0 +1,14 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+    padding-bottom: 1em;
+
+}
+
+ div {
+    flex-grow: 1;
+    background-color: aliceblue;
+}

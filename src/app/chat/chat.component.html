@@ -1,0 +1,17 @@
+
+<div>
+    text area
+    @for (msg of messages(); track msg) {
+        <div>
+            {{msg}}
+        </div>
+    }
+
+    <!-- add text bubble component -->
+</div>
+
+<form [formGroup]="chatForm" (ngSubmit)="onSubmit()" >
+
+    <input formControlName="message" name="message" type="text" >
+    <button type="submit">Send</button>
+</form>
