@@ -1,5 +1,6 @@
+<img [src]="friend().avatar" [alt]="friend().username">
+<p>{{friend().username}}</p>
+@if (showAddFriend()) {
 
-
-
-<img [src]="friend().avatar" [alt]="friend().name">
-<p>{{friend().name}}</p>
+    <i class="addIcon" (click)="onAddFriend()">+</i>
+}

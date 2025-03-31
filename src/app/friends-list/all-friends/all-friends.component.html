@@ -1,7 +1,7 @@
 <div>
-    <!-- list of friend component -->
-    @for (friend of friendList; track friend.uid) {
-        <app-friend [friend]="friend"></app-friend>
+    <!-- list of friend component  -->
+     @for (friend of friendList(); track friend.userId) {
+        <app-friend [showAddFriend]="false" [friend]="friend"></app-friend>
     }
 
 

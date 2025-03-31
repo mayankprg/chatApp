@@ -4,6 +4,14 @@ import { ApiURL, AuthService } from "../auth/auth.service";
 
 
 
+
+export type Friend = {
+    username: string
+    userId: string
+    avatar: string
+    
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -12,18 +20,27 @@ export class FriendsService {
     private authService = inject(AuthService);
 
 
+    // TODO handle errors 
 
-    getNewFriend(username: string) {
-        return this.httpClient.post(ApiURL + '/findUser', {
+    addFriend(userId: string) {
+        return this.httpClient.post(ApiURL + '/addFriend', {
+            userId: userId
+        })
+    }
+
+
+
+    findUser(username: string) {
+        return this.httpClient.post<Friend[]>(ApiURL + '/findUser', {
             username: username
-        });
+        })
 
     }
 
 
 
-    getFriends() {
-        return this.httpClient.get(ApiURL + '/getFriends');
+    getAllFriends() {
+        return this.httpClient.get<Friend[]>(ApiURL + '/getAllFriends');
     }
 
 }

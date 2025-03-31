@@ -10,9 +10,3 @@ export const dummyFriends = [
 ];
 
 
-export type Friend = {
-    uid: string
-    name: string
-    avatar: string
-    
-}

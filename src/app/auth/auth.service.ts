@@ -6,20 +6,21 @@ import { Router } from '@angular/router';
 
 export const ApiURL = "http://localhost:3000/api"
 
-function authIntercepter(req: HttpRequest<unknown>, next: HttpHandlerFn) {
+export function authIntercepter(req: HttpRequest<unknown>, next: HttpHandlerFn) {
 	const authService = inject(AuthService);
 
 	if(!authService.user.getValue()) {
-		return req;
+		return next(req);
 	}
 
 	const requestWithHeaders = req.clone({
 		headers: req.headers.set('Authorization', 'Bearer ' + authService.user.getValue()?.getToken()!)
 	})
 
-	// handle error like if the access token is expired, refresh it
+	//TODO  handle error like if the access token is expired, refresh it
 	return next(requestWithHeaders).pipe(catchError(error=> {
-		return new  Observable<HttpEvent<any>>();
+		return throwError(() => new Error(error))
+
 	}))
 
 }

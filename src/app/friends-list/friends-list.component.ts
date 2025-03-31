@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { AllFriendsComponent } from "./all-friends/all-friends.component";
 import { SearchUserComponent } from "./searchUser/search-user.component";
+
 
 @Component({
 	selector: 'app-friends-list',

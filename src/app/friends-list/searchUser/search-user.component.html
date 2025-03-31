@@ -5,15 +5,16 @@
 
     <div class="dropdown-menu">
 
-        <form action="">
+        <form [formGroup]="searchForm" >
             <label for="search">Find a new friend 
-
-                <input type="text" name="search" class="search" placeholder="search by username">
+                <input type="text" name="search" formControlName="search" class="search" placeholder="search by username">
             </label>
         </form>
 
-        @for (friend of friendList; track friend.uid) {
-        <app-friend [friend]="friend"></app-friend>
+
+        
+        @for (friend of friendList(); track friend.userId) {
+        <app-friend [showAddFriend]="true" [friend]="friend"></app-friend>
         }
 
 
