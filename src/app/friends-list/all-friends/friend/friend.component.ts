@@ -1,5 +1,6 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { Friend, FriendsService } from '../../friendsService';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
 	selector: 'app-friend',
@@ -12,6 +13,10 @@ export class FriendComponent {
 
 	friend = input.required<Friend>();
 	showAddFriend = input.required<boolean>();
+
+	
+
+
 
 	
 	onAddFriend() {

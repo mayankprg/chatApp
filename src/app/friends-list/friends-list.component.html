@@ -1,12 +1,16 @@
-<div>
 
     <div class="search-container">
-        <form action="">
-            <input class="search-box" type="text">
-          
+
+        <div class="header">
+            <h1>Chats</h1>
+            <app-search-user></app-search-user>
+            
+        </div>
+
+        <form [formGroup]="searchChatsForm" >
+            <input class="search-box" placeholder="Search Chats" formControlName="searchChats" type="text" >
         </form>
 
-        <app-search-user></app-search-user>
             
        
     </div>
@@ -15,4 +19,3 @@
 
 
 
-</div>

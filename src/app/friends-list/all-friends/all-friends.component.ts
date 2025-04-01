@@ -1,10 +1,11 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { FriendComponent } from "./friend/friend.component";
 import { Friend, FriendsService } from '../friendsService';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 
 @Component({
 	selector: 'app-all-friends',
-	imports: [FriendComponent],
+	imports: [FriendComponent, AsyncPipe],
 	templateUrl: './all-friends.component.html',
 	styleUrl: './all-friends.component.css',
 	host: {
@@ -13,30 +14,19 @@ import { Friend, FriendsService } from '../friendsService';
 })
 export class AllFriendsComponent implements OnInit{
 	private friendsService = inject(FriendsService);
-	private destroyRef = inject(DestroyRef);
 
-
-
-	friendList = signal<Friend[] | null>(null);
+	friendList = this.friendsService.friendsChatsList$
 	
 	ngOnInit(): void {
-		const subscription = this.friendsService.getAllFriends().subscribe({
-			next: (res) => {
-				console.log(res);
-				this.friendList.set(res)
-				
-			}
-		})
-
-		this.destroyRef.onDestroy(()=> {
-			subscription.unsubscribe();
-		})
+		this.friendsService.getAllFriends()	
+		
 	}
-
 
 	onClick() {
 		console.log("clicked");
 	}
+
+
 
 
 }

@@ -3,23 +3,19 @@ import { FriendsListComponent } from './friends-list/friends-list.component';
 import { ChatComponent } from './chat/chat.component';
 import { AuthComponent } from './auth/auth.component';
 import { canActivate } from './auth/auth.guard';
+import { AppComponent } from './app.component';
+import { NoChatComponent } from './no-chat/no-chat.component';
 
 export const routes: Routes = [
     {
         path:'',
-        redirectTo: 'auth',
-        pathMatch: 'full'
+        component: NoChatComponent,
+        canActivate: [canActivate]
     },
     {
         path: 'auth',
         component: AuthComponent
-    },
-    {
-        path: 'friends',
-        component: FriendsListComponent,
-        canActivate: [canActivate]
-
-    },
+    }, 
     {
         path: 'chat',
         component: ChatComponent,

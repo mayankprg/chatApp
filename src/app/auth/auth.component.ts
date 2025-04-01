@@ -71,7 +71,7 @@ export class AuthComponent {
 			{
 				next: (resData) => {
 					console.log(resData);
-					this.router.navigate(['/friends'])
+					this.router.navigate([''])
 				},
 				error: (err) => {
 					console.log(err);

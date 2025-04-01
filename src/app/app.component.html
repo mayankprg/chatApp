@@ -1,6 +1,9 @@
 <main>
     <!-- users list (friends) -->
-    <div id="ui">
+    <div class="ui"  [class.loggedIn]="isLoggedIn()">
+        @if (isLoggedIn()) {
+        <app-friends-list></app-friends-list>
+        }
         <router-outlet></router-outlet>
     </div>
 </main>

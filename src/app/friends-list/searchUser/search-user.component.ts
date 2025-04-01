@@ -2,7 +2,7 @@ import { AfterViewInit, Component, DestroyRef, ElementRef, inject, signal } from
 import { FriendComponent } from "../all-friends/friend/friend.component";
 import { Friend, FriendsService } from '../friendsService';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, subscribeOn, Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs';
 
 
 @Component({
@@ -33,9 +33,9 @@ export class SearchUserComponent implements AfterViewInit{
 	ngAfterViewInit(){
 
 		const Subscription =  this.searchForm.valueChanges.pipe(debounceTime(300)).subscribe({
-			next: (val) =>  {
-				if (val.search) {
-					this.friendService.findUser(val.search).subscribe({
+			next: (formVal) =>  {
+				if (formVal.search) {
+					this.friendService.findUser(formVal.search).subscribe({
 						next: res => {	
 							this.friendList.set(res)
 						}

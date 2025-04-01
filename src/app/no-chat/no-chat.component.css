@@ -1,0 +1,11 @@
+
+:host {
+    display: none;
+}
+
+
+@media (min-width: 768px) { /* Adjust the breakpoint as needed */
+    :host {
+        display: flex;
+    }
+}
