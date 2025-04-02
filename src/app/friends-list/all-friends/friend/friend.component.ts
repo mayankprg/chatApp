@@ -15,10 +15,6 @@ export class FriendComponent {
 	showAddFriend = input.required<boolean>();
 
 	
-
-
-
-	
 	onAddFriend() {
 		this.friendsService.addFriend(this.friend().userId).subscribe({
 			next: res => {

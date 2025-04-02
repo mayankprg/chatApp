@@ -50,6 +50,8 @@ export class FriendsService {
     getAllFriends() {
         this.httpClient.get<Friend[]>(ApiURL + '/getAllFriends').subscribe({
             next:(res) => {
+                console.log(res);
+                
                 this.friendsChatsListSubject.next(res)
             }
         })
