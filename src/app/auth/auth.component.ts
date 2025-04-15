@@ -4,13 +4,13 @@ import { AuthResponse, AuthService } from './auth.service';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 
-function usernameIsUnique(control: AbstractControl) {
+// function usernameIsUnique(control: AbstractControl) {
 
 
-	return of({
-		notUnique: true
-	})
-}
+// 	return of({
+// 		notUnique: true
+// 	})
+// }
 
 
 

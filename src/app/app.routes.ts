@@ -17,7 +17,7 @@ export const routes: Routes = [
         component: AuthComponent
     }, 
     {
-        path: 'chat',
+        path: 'chat/:userId',
         component: ChatComponent,
         canActivate: [canActivate]
     }

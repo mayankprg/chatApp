@@ -2,7 +2,7 @@ import { AfterViewInit, Component, DestroyRef, ElementRef, inject, signal } from
 import { FriendComponent } from "../all-friends/friend/friend.component";
 import { Friend, FriendsService } from '../friendsService';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 
 
 @Component({
@@ -14,13 +14,13 @@ import { debounceTime } from 'rxjs';
 		'(document:click)': 'closeMenu($event)',
 	}
 })
-export class SearchUserComponent implements AfterViewInit{
+export class SearchUserComponent implements AfterViewInit {
 	private elementRef = inject(ElementRef);
 	private friendService = inject(FriendsService);
 	private destroyRef = inject(DestroyRef);
 
 	searchForm = new FormGroup({
-		search : new FormControl('', {
+		search: new FormControl('', {
 			validators: []
 		})
 	})
@@ -29,26 +29,33 @@ export class SearchUserComponent implements AfterViewInit{
 	isOpen = signal(false);
 
 
+	ngAfterViewInit() {
+		const subscription = this.searchForm.valueChanges.pipe(
+			debounceTime(300), // Wait for user to stop typing
+			map(formVal => formVal.search?.trim()), // Get trimmed search term
+			filter(searchTerm => !!searchTerm), // Ignore empty searches
+			distinctUntilChanged(), // Avoid unnecessary API calls for the same term
+			switchMap(searchTerm => {
+				return this.friendService.findUser(searchTerm!).pipe(
+					withLatestFrom(this.friendService.friendsChatsList$),
+					map(([searchResults, newfriendList]) =>
+						searchResults.filter(user => {
+							if(!newfriendList) return true;
+							return !newfriendList.some(friend => friend.username === user.username) // Remove friends
+						})
+					)
+				)
+			})
+		).subscribe({
+			next: filteredResults => {
+				this.friendList.set(filteredResults); // Only show non-friends
+			},
+			error: err => console.error("Error fetching user:", err)
+		});
 
-	ngAfterViewInit(){
-
-		const Subscription =  this.searchForm.valueChanges.pipe(debounceTime(300)).subscribe({
-			next: (formVal) =>  {
-				if (formVal.search) {
-					this.friendService.findUser(formVal.search).subscribe({
-						next: res => {	
-							this.friendList.set(res)
-						}
-					})
-				}
-			}
-		})
-
-		this.destroyRef.onDestroy(()=> {
-			Subscription.unsubscribe()
-		})
-
-
+		this.destroyRef.onDestroy(() => {
+			subscription.unsubscribe();
+		});
 	}
 
 	closeMenu(event: Event) {

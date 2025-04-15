@@ -17,8 +17,6 @@ export class FriendsService {
     private httpClient = inject(HttpClient);
     private authService = inject(AuthService);
 
-	// friendsChatsList$ = new BehaviorSubject<Friend[] | null>(null)
-
     private friendsChatsListSubject = new BehaviorSubject<Friend[]>([]);
     friendsChatsList$ = this.friendsChatsListSubject.asObservable();
 
@@ -39,6 +37,7 @@ export class FriendsService {
 
 
     findUser(username: string) {
+
         return this.httpClient.post<Friend[]>(ApiURL + '/findUser', {
             username: username
         })
@@ -50,7 +49,7 @@ export class FriendsService {
     getAllFriends() {
         this.httpClient.get<Friend[]>(ApiURL + '/getAllFriends').subscribe({
             next:(res) => {
-                console.log(res);
+                // console.log(res);
                 
                 this.friendsChatsListSubject.next(res)
             }

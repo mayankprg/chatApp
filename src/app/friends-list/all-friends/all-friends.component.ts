@@ -8,9 +8,7 @@ import { AsyncPipe, JsonPipe } from '@angular/common';
 	imports: [FriendComponent, AsyncPipe],
 	templateUrl: './all-friends.component.html',
 	styleUrl: './all-friends.component.css',
-	host: {
-		"(click)": "onClick($event)"
-	}
+	
 })
 export class AllFriendsComponent implements OnInit{
 	private friendsService = inject(FriendsService);

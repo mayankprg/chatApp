@@ -12,7 +12,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 	styleUrl: './friends-list.component.css'
 })
 export class FriendsListComponent {
-	
+	private authService = inject(AuthService);
 
 	searchChatsForm = new FormGroup({
 		searchChats : new FormControl('', {
@@ -20,7 +20,10 @@ export class FriendsListComponent {
 		})
 	})
 
-
+	
+	logout() {
+		this.authService.logout();
+	}
 
 
 
